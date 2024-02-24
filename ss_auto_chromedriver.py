@@ -1,3 +1,5 @@
+#version = 1.0.0
+
 import bs4
 import webbrowser
 import zipfile
