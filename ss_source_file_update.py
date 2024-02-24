@@ -2,9 +2,7 @@
 import sys
 import requests
 
-def get_file_content(file_name, file_location, location_type):
-    global github
-    
+def get_file_content(file_name, file_location, location_type):  
     if location_type == "pc":
         try:
             f = open(file_location + file_name, "r", encoding = "utf-8")
