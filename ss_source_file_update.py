@@ -1,8 +1,11 @@
-#version = 1.0.0
+#version = 1.0.1
 import sys
 import requests
+from packaging import version
 
-def get_file_content(file_name, file_location, location_type):  
+def get_file_content(file_name, file_location, location_type):
+    global github
+    
     if location_type == "pc":
         try:
             f = open(file_location + file_name, "r", encoding = "utf-8")
@@ -52,12 +55,17 @@ def update_files(file_names, pc_location, github_location):
         if pc_file_version == github_file_version:
             print("버전이 일치합니다")
         else:
-            print("버전이 일치하지 않아 업데이트 합니다.")
-            try:
-                f = open(file_names[i], "w", encoding = "utf-8")
-                f.write(github_file_content.replace("\r\n", "\n"))
-                f.close()
-            except:
-                print(f"{file_names[i]} 쓰기에 실패하였습니다. ")
-                sys.exit()
+            if version.parse(pc_file_version) > version.parse(github_file_version):
+                print("현재 설치된 버전이 더 최신입니다.")
+            else:
+                print("버전이 일치하지 않아 업데이트 합니다.")
+                try:
+                    f = open(file_names[i], "w", encoding = "utf-8")
+                    f.write(github_file_content.replace("\r\n", "\n"))
+                    f.close()
+                except:
+                    print(f"{file_names[i]} 쓰기에 실패하였습니다. ")
+                    sys.exit()
+            
+
             
