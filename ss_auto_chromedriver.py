@@ -75,7 +75,7 @@ def download_chromedriver():
         print("새창에 크롬 드라이버들을 직접 찾아서 다운로드 해야 합니다. ")
         return False
 
-    with open(PYTHON_PATH +  CHROME_DRIVER_FOLER + CHROME_ZIP_FILE_NAME, "wb") as file:   
+    with open(PYTHON_PATH + CHROME_ZIP_FILE_NAME, "wb") as file:   
         response = requests.get(down_url, verify=False)               
         file.write(response.content)
         
@@ -83,10 +83,10 @@ def download_chromedriver():
 
 ##################### 다운로드한 ZIP파일 풀기 ##########################
 def unzip_chromedriver():
-    with zipfile.ZipFile(PYTHON_PATH +  CHROME_DRIVER_FOLER + CHROME_ZIP_FILE_NAME,"r") as zip_ref:
-        zip_ref.extractall(PYTHON_PATH +  CHROME_DRIVER_FOLER)
+    with zipfile.ZipFile(PYTHON_PATH +  CHROME_ZIP_FILE_NAME,"r") as zip_ref:
+        zip_ref.extractall(PYTHON_PATH)
 
-    os.remove(PYTHON_PATH +  CHROME_DRIVER_FOLER + CHROME_ZIP_FILE_NAME)
+    os.remove(PYTHON_PATH +  CHROME_ZIP_FILE_NAME)
 
 
 ##################### 크롬 드라이버 구동하기   #########################
