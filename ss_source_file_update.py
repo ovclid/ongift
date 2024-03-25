@@ -79,7 +79,7 @@ def update_files(file_names = ["ss_auto_chromedriver.py"],
             else:
                 print("버전이 일치하지 않아 업데이트 합니다.")
                 try:
-                    f = open(file_names[i], "w", encoding = "utf-8")
+                    f = open(f"{os.path.dirname(sys.executable)}/{file_names[i]}", "w", encoding = "utf-8")
                     f.write(github_file_content.replace("\r\n", "\n"))
                     f.close()
                 except:
