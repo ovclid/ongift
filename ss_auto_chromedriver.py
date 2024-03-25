@@ -84,7 +84,7 @@ def download_chromedriver():
 ##################### 다운로드한 ZIP파일 풀기 ##########################
 def unzip_chromedriver():
     with zipfile.ZipFile(PYTHON_PATH +  CHROME_DRIVER_FOLER + CHROME_ZIP_FILE_NAME,"r") as zip_ref:
-        zip_ref.extractall("./")
+        zip_ref.extractall(PYTHON_PATH +  CHROME_DRIVER_FOLER)
 
     os.remove(PYTHON_PATH +  CHROME_DRIVER_FOLER + CHROME_ZIP_FILE_NAME)
 

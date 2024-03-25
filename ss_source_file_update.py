@@ -9,10 +9,11 @@ def get_file_content(file_name, file_location, location_type):
     
     if location_type == "pc":
         try:
-            f = open(file_location + file_name, "r", encoding = "utf-8")
+            f = open(file_location + "/" + file_name, "r", encoding = "utf-8")
             file_content = f.read()
             f.close()
         except:
+            print(f"{file_name} 읽기 실패하였습니다.")
             file_content= ""
             
     elif location_type == "github":
