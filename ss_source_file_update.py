@@ -89,5 +89,5 @@ def update_files(file_names = ["ss_auto_chromedriver.py"],
 
 update_files()
 
-import ss_auto_chromedriver as ss_driver
-driver = ss_driver.start()
+#import ss_auto_chromedriver as ss_driver
+#driver = ss_driver.start()
