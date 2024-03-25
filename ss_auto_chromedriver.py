@@ -16,8 +16,13 @@ from selenium.webdriver.chrome.service import Service
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 ###################### global 변수 선언 #####################
+PYTHON_PATH = os.path.dirname(sys.executable)
+CHROME_DRIVER_FOLER = "/chromedriver-win64/"
+CHROME_EXE_FILE_NAME = "chromedriver.exe"
+CHROME_ZIP_FILE_NAME = "chromedriver.zip"
+
 PC_INSTALLED_CHROME_FILE = r"C:/Program Files/Google/Chrome/Application/chrome.exe"
-PC_DOWNLOADED_CHROMEDRIVER_FILE = "./chromedriver-win64/chromedriver.exe"
+PC_DOWNLOADED_CHROMEDRIVER_FILE = PYTHON_PATH +  CHROME_DRIVER_FOLER + CHROME_EXE_FILE_NAME  #f"{PYTHON_PATH}/chromedriver-win64/chromedriver.exe"
 URL_LASTEST_CHROMEDRIVER_LIST = 'https://googlechromelabs.github.io/chrome-for-testing/'
 
 ################## PC에 설치된 크롬 버전 얻기  ################
@@ -69,7 +74,7 @@ def download_chromedriver():
         print("새창에 크롬 드라이버들을 직접 찾아서 다운로드 해야 합니다. ")
         return False
 
-    with open("chromedriver.zip", "wb") as file:   
+    with open(PYTHON_PATH +  CHROME_DRIVER_FOLER + CHROME_ZIP_FILE_NAME, "wb") as file:   
         response = requests.get(down_url, verify=False)               
         file.write(response.content)
         
@@ -77,10 +82,10 @@ def download_chromedriver():
 
 ##################### 다운로드한 ZIP파일 풀기 ##########################
 def unzip_chromedriver():
-    with zipfile.ZipFile("chromedriver.zip","r") as zip_ref:
+    with zipfile.ZipFile(PYTHON_PATH +  CHROME_DRIVER_FOLER + CHROME_ZIP_FILE_NAME,"r") as zip_ref:
         zip_ref.extractall("./")
 
-    os.remove("./chromedriver.zip")
+    os.remove(PYTHON_PATH +  CHROME_DRIVER_FOLER + CHROME_ZIP_FILE_NAME)
 
 
 ##################### 크롬 드라이버 구동하기   #########################
@@ -97,6 +102,11 @@ def start_chromedriver():
 def start():
     print("auto chromedriver version : 1.0.0")
     if os.path.exists(PC_DOWNLOADED_CHROMEDRIVER_FILE) == False:
+
+        if os.path.exists(PYTHON_PATH +  CHROME_DRIVER_FOLER) == False:
+            print("크롬 드라이버 폴더를 새로 생성합니다")
+            os.mkdir(PYTHON_PATH +  CHROME_DRIVER_FOLER)
+            
         print("크롬드라이버가 없어 다운로드를 시도힙니다...")
         if download_chromedriver() == True:
             unzip_chromedriver()

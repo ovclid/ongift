@@ -1,5 +1,6 @@
 #version = 1.0.1
 import sys
+import os
 import requests
 from packaging import version
 
@@ -17,10 +18,14 @@ def get_file_content(file_name, file_location, location_type):
     elif location_type == "github":
         try:
             url = f"https://raw.githubusercontent.com/{file_location}/main/{file_name}"
+                     #https://raw.githubusercontent.com/ovclid/ongift/main/ss_source_file_update.py
+            
+            print(url)
             download = requests.get(url)
             file_content = download.text
         except:
             file_content= ""
+            print("github로 부터 다운로드 실패")
                 
     return file_content
 
@@ -36,15 +41,29 @@ def get_version(file_content):
 
     return file_version
 
-def update_files(file_names, pc_location, github_location):
+def update_files(file_names = ["ss_auto_chromedriver.py"],
+                     #pc_location = "./", #os.getcwd(),
+                   pc_location = os.path.dirname(sys.executable),
+                  github_location = "ovclid/ongift"):
+
+    print(file_names, pc_location, github_location)
+    
+    if os.path.exists(pc_location) == False:
+        print(f"해당 PC의 {pc_location} 디렉토리가 존재하지 않습니다.")
+        return False
+    
     for i in range(len(file_names)):
         print(f"{file_names[0]} 를 확인중...")
 
         pc_file_content = get_file_content(file_names[i], pc_location, "pc")
-        pc_file_version = get_version(pc_file_content)
+        if pc_file_content == "":
+            pc_file_version = "0.0.0"
+        else:
+            pc_file_version = get_version(pc_file_content)
         print(pc_file_version)
         
         github_file_content =get_file_content(file_names[i], github_location, "github")
+        print(github_file_content)
         github_file_version = get_version(github_file_content)
         print(get_version(github_file_content))
 
@@ -68,4 +87,7 @@ def update_files(file_names, pc_location, github_location):
                     sys.exit()
             
 
-            
+update_files()
+
+import ss_auto_chromedriver as ss_driver
+driver = ss_driver.start()
