@@ -189,6 +189,8 @@ def images_to_file (i, images, store_name, current_folder):
     else:
         downfile_image = Image.open(download_folder + downfile)
 
+    downfile_image.convert("RGB")
+    
     if downfile_image.size[0] > downfile_image.size[1] :
         downfile_image = downfile_image.resize((842,595))   # A4 가로 크기로 재조정
         downfile_image = downfile_image.rotate(270)         # 세로로 전환
@@ -201,6 +203,7 @@ def images_to_file (i, images, store_name, current_folder):
     os.rename(current_folder+"/사업자등록증"+f"/{downfile}",
                   current_folder+"/사업자등록증"+f"/{i+1}_{store_name}_{downfile}")
 
+    """
     try:
         images_result[0].save(f"./{current_folder}/{i+1}_{store_name}.pdf", save_all = True, append_images=images_result[1:])
         print(f"파일생성 완료(정상) : {i+1}_{store_name}.pdf")
@@ -214,6 +217,7 @@ def images_to_file (i, images, store_name, current_folder):
         print(f"파일생성 완료(RGBA 에러처리) : {i+1}_{store_name}.pdf")
     except Exception as e:
         print(f"이미지 파일 저장 과정에서 예기처 못한 예러 발생: {e}")
+    """
     
 ## 중복 검색 오류(시스템 기준)  가맹점에 대한 대화창 닫기
 def close_error_dialog():
