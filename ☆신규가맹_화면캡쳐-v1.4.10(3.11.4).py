@@ -43,11 +43,11 @@ def start_webdriver():
 ## 온누리가맹점 사이트 로그인
 def login_ongift(driver):
     ele = driver.find_element("id", "userId")
-    ele.send_keys("cvc1004")
+    ele.send_keys("c")
     time.sleep(1)
 
     ele = driver.find_element("id", "userPw")
-    ele.send_keys("pek2151383!!")
+    ele.send_keys("pek")
     time.sleep(1)
 
     ele = driver.find_element("class name", "btn.btn-primary.btn-block.btn-large")
